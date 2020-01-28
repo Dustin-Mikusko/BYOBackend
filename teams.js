@@ -1,4 +1,4 @@
-const teams = [ 
+export const teams = [ 
   { 
     ballPark: 'Oriole Park',
     id: 1,
@@ -178,4 +178,37 @@ const teams = [
     teamName: 'Washington Nationals',
     website: 'nationals.com' 
   } 
+];
+
+export const teamUrlCodes = [
+  'bal',
+  'bos',
+  'cws',
+  'cle',
+  'det',
+  'hou',
+  'kc',
+  'ana',
+  'min',
+  'nyy',
+  'oak',
+  'sea',
+  'tb',
+  'tex',
+  'tor',
+  'ari',
+  'atl',
+  'chc',
+  'cin',
+  'col',
+  'la',
+  'marlins',
+  'mil',
+  'nym',
+  'phi',
+  'pit',
+  'sd',
+  'sf',
+  'stl',
+  'was',
 ]
