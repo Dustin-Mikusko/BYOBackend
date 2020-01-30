@@ -73,6 +73,25 @@ app.get('/api/v1/teams/:id/roster', async (req, res) => {
   }
 });
 
+app.get('/api/v1/players', async (req, res) => {
+  try {
+    const players = await database('roster').select();
+    const displayPlayers = players.map(player => {
+      return {
+        id: player.id,
+        first_name: player.first_name,
+        last_name: player.last_name,
+      }
+    })
+    
+    res.status(200).json({
+      players: displayPlayers
+    })
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' })
+  }
+})
+
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on http://localhost:${app.get('port')}.`);
 });
