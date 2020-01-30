@@ -83,12 +83,36 @@ app.get('/api/v1/players', async (req, res) => {
         last_name: player.last_name,
       }
     })
-    
+
     res.status(200).json({
       players: displayPlayers
     })
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' })
+  }
+});
+
+app.post('/api/v1/teams', async (req, res) => {
+  const team = req.body;
+
+  for (let requiredParameter of ['team_name', 'ballpark', 'website']) {
+    if (!team[requiredParameter]) {
+      return res.status(422).send({ error: `Expected format: { team_name: <String>, ballpark: <String>, website: <String> }. You're missing a '${requiredParameter}' property.` });
+    }
+  }
+
+  try {
+    const { team_name, ballpark, website } = team;
+    const id = await database('teams').insert(team, 'id');
+    console.log(id);
+    res.status(201).json({
+      id: id[0],
+      team_name,
+      ballpark,
+      website
+    })
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error.' })
   }
 })
 
