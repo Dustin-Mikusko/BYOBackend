@@ -1,4 +1,4 @@
-export const teams = [ 
+const teams = [ 
   { 
     ballPark: 'Oriole Park',
     id: 1,
@@ -1421,7 +1421,7 @@ export const teams = [
   } 
 ];
 
-export const teamUrlCodes = [
+const teamUrlCodes = [
   'bal',
   'bos',
   'cws',
@@ -1452,4 +1452,6 @@ export const teamUrlCodes = [
   'sf',
   'stl',
   'was',
-]
+];
+
+module.exports = teams;
