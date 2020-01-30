@@ -21,26 +21,56 @@ app.get('/api/v1/teams', async (req, res) => {
       }
     })
     res.status(200).json({ teams: displayTeams });
-  } catch(err) {
-    res.status(500).json({ err });
+  } catch(error) {
+    res.status(500).json({ error: 'Internal server error' });
   };
 });
 
 app.get('/api/v1/teams/:id', async (req, res) => {
-  const { id } = req.params;
-  const teams = await database('teams').select();
-  const team = teams.find(team => team.id === Number(id));
+  try {
+    const { id } = req.params;
+    const teams = await database('teams').select();
+    const team = teams.find(team => team.id === Number(id));
   
-  if (!team) {
-    return res.status(404).json('No team found.')
-  }
+    if (!team) {
+      return res.status(404).json(`No team found with id ${id}`)
+    }
 
-  res.status(200).json({
-    id: team.id,
-    team_name: team.team_name,
-    ballpark: team.ballpark,
-    website: team.website
-  });
+    res.status(200).json({
+      id: team.id,
+      team_name: team.team_name,
+      ballpark: team.ballpark,
+      website: team.website
+    });
+  } catch(error) {
+      res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.get('/api/v1/teams/:id/roster', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const team = await database('teams').where('id', id).select();
+    console.log(team);
+    const teamId = team[0].id;
+    console.log(teamId);
+
+    if (!teamId) {
+      return res.status(404).json(`No team found with id ${id}`)
+    } else {
+      const roster = await database('roster').where('team_id', Number(teamId)).select();
+      const displayRoster = roster.map(player => {
+      return {
+        id: player.id,
+        first_name: player.first_name,
+        last_name: player.last_name,
+      }
+    })
+      res.status(200).json({ roster: displayRoster });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 app.listen(app.get('port'), () => {
