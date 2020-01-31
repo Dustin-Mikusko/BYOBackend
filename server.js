@@ -58,7 +58,7 @@ app.get('/api/v1/teams/:id/roster', async (req, res) => {
     if (!teamId) {
       return res.status(404).json(`No team found with id ${id}`)
     } else {
-      const roster = await database('roster').where('team_id', Number(teamId)).select();
+      const roster = await database('players').where('team_id', Number(teamId)).select();
       const displayRoster = roster.map(player => {
       return {
         id: player.id,
@@ -75,7 +75,7 @@ app.get('/api/v1/teams/:id/roster', async (req, res) => {
 
 app.get('/api/v1/players', async (req, res) => {
   try {
-    const players = await database('roster').select();
+    const players = await database('players').select();
     const displayPlayers = players.map(player => {
       return {
         id: player.id,
@@ -128,7 +128,7 @@ app.post('/api/v1/teams/:id/roster', async (req, res) => {
 
   try {
     const { first_name, last_name } = player;
-    const id = await database('roster').insert(player, 'id');
+    const id = await database('players').insert(player, 'id');
     res.status(201).json({
       id: id[0],
       first_name,
@@ -142,7 +142,7 @@ app.post('/api/v1/teams/:id/roster', async (req, res) => {
 app.delete('/api/v1/players/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    await database('roster').where('id', id).del();
+    await database('players').where('id', id).del();
     res.sendStatus(204)
   } catch (error) {
     res.status(500).send({ error: 'Internal server error.' })
