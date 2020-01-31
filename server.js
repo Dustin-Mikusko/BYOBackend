@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
 app.set('port', process.env.PORT || 3000);
 app.locals.title = 'BYOBackend';
 app.use(express.json());
+app.use(cors());
 
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
@@ -51,9 +53,7 @@ app.get('/api/v1/teams/:id/roster', async (req, res) => {
   try {
     const { id } = req.params;
     const team = await database('teams').where('id', id).select();
-    console.log(team);
     const teamId = team[0].id;
-    console.log(teamId);
 
     if (!teamId) {
       return res.status(404).json(`No team found with id ${id}`)
@@ -119,7 +119,6 @@ app.post('/api/v1/teams/:id/roster', async (req, res) => {
   const body = req.body;
   const { id } = req.params;
   const player = {...body, team_id: Number(id)};
-  console.log(player);
 
   for (let requiredParameter of ['first_name', 'last_name']) {
     if (!player[requiredParameter]) {
@@ -128,7 +127,7 @@ app.post('/api/v1/teams/:id/roster', async (req, res) => {
   }
 
   try {
-    const { first_name, last_name, team_id } = player;
+    const { first_name, last_name } = player;
     const id = await database('roster').insert(player, 'id');
     res.status(201).json({
       id: id[0],
@@ -139,6 +138,16 @@ app.post('/api/v1/teams/:id/roster', async (req, res) => {
     res.status(500).json({ error: 'Internal server error.' });
   }
 });
+
+app.delete('/api/v1/players/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    await database('roster').where('id', id).del();
+    res.sendStatus(204)
+  } catch (error) {
+    res.status(500).send({ error: 'Internal server error.' })
+  }
+})
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on http://localhost:${app.get('port')}.`);
