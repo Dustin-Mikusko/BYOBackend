@@ -20,12 +20,12 @@ const createTeam = async (knex, team) => {
 };
 
 const createRoster = (knex, roster) => {
-  return knex('roster').insert(roster)
+  return knex('players').insert(roster)
 };
 
 exports.seed = async knex => {
   try {
-    await knex('roster').del();
+    await knex('players').del();
     await knex('teams').del();
 
     let teamPromises = teams.map(team => {
