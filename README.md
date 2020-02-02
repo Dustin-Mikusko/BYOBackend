@@ -28,7 +28,7 @@ Example team object:
             "team_name": "Houston Astros",
             "ballpark": "Minute Maid Park",
             "website": "astros.com"
-        }
+}
 ```
 
 ### Players Table
@@ -40,7 +40,7 @@ Example player object:
             "id": 229,
             "first_name": "Jose",
             "last_name": "Altuve"
-        }
+}
 ```
 
 ## Endpoints
