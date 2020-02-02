@@ -52,12 +52,13 @@ app.get('/api/v1/teams/:id', async (req, res) => {
 app.get('/api/v1/teams/:id/roster', async (req, res) => {
   try {
     const { id } = req.params;
-    const team = await database('teams').where('id', id).select();
-    const teamId = team[0].id;
+    const teams = await database('teams').select();
+    const team = teams.find(team => team.id === Number(id));
 
-    if (!teamId) {
+    if (!team) {
       return res.status(404).json(`No team found with id ${id}`)
     } else {
+      const teamId = team[0].id;
       const roster = await database('players').where('team_id', Number(teamId)).select();
       const displayRoster = roster.map(player => {
       return {
@@ -142,7 +143,12 @@ app.post('/api/v1/teams/:id/roster', async (req, res) => {
 app.delete('/api/v1/players/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    await database('players').where('id', id).del();
+    const player = await database('players').where('id', id).del(); 
+
+    if (!player) {
+      return res.sendStatus(404)
+    }
+
     res.sendStatus(204)
   } catch (error) {
     res.status(500).send({ error: 'Internal server error.' })
