@@ -47,6 +47,9 @@ Example player object:
 
 | Purpose | URL | Verb | Request Body | Sample Success Response |
 |----|----|----|----|----|
-| Get all orders |`/api/v1/orders`| GET | N/A | All orders on the server: `{orders: [{}, {}, ...]}` |
+| Get all teams |`/api/v1/teams`| GET | N/A | All teams on the server: `{teams: [{"id": 74,
+            "team_name": "Houston Astros",
+            "ballpark": "Minute Maid Park",
+            "website": "astros.com"}, ...]}` |
 | Add new order |`/api/v1/orders`| POST | `{name: <String>, ingredients: <Array of Strings>}` | New order that was added: `{id: 2, name: "Alex", ingredients: ["cheese", "beans"]}` |
 | Delete existing order |`/api/v1/orders/:order_id`| DELETE | N/A | For successful deletion: No response body (only 204 status code) |
