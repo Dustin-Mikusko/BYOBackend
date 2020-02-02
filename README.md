@@ -1,11 +1,11 @@
 # BYOBackend
 
-This backend project builds a *RESTful API* that holds data on current MLB teams and their current 40-man roster (as of Jan. 2020). The data was collected by using the Nightmare webscraping library to scrape the MLB website for the teams and their basic info, along with scraping each of the teams website to gather the current 40-man roster for each players first and last name.
+This backend project builds a **RESTful API** that holds data on current MLB teams and their current 40-man roster (as of Jan. 2020). The data was collected by using the Nightmare webscraping library to scrape the MLB website for the teams and their basic info, along with scraping each of the teams website to gather the current 40-man roster for each players first and last name.
 
 ## Tech Stack
-* *Node.js* using *Express* framework to handle routes for `GET`, `POST`, and `DELETE` requests
-* *Knex* as a SQL query builder
-* *PostgreSQL* Database
+* **Node.js** using **Express** framework to handle routes for `GET`, `POST`, and `DELETE` requests
+* **Knex** as a SQL query builder
+* **PostgreSQL** Database
 
 ## Setup
 
