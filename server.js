@@ -54,11 +54,12 @@ app.get('/api/v1/teams/:id/roster', async (req, res) => {
     const { id } = req.params;
     const teams = await database('teams').select();
     const team = teams.find(team => team.id === Number(id));
+    console.log(team)
 
     if (!team) {
       return res.status(404).json(`No team found with id ${id}`)
     } else {
-      const teamId = team[0].id;
+      const teamId = team.id;
       const roster = await database('players').where('team_id', Number(teamId)).select();
       const displayRoster = roster.map(player => {
       return {
