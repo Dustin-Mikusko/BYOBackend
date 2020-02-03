@@ -50,3 +50,5 @@ Example player object:
 | Get all teams |`/api/v1/teams`| GET | N/A | All teams on the server: `{teams: [{'id': 74, 'team_name': 'Houston Astros', 'ballpark': 'Minute Maid Park', 'website': 'astros.com'}, ...]` |
 | Get specific team |`/api/v1/teams/:id`| GET | N/A | Specific team by url id: `{'id': 74, 'team_name': 'Houston Astros', 'ballpark': 'Minute Maid Park', 'website': 'astros.com'}` |
 | Get 40-man roster for specific team |`/api/v1/teams/:id/roster`| GET | N/A | All players for specific team: `{roster: [{'id': 229, 'first_name': 'Jose', 'last_name': 'Altuve'}, {}, ...]}` |
+| Get all players |`/api/v1/players`| GET | N/A | All players on the server: `{players: [{'id': 229, 'first_name': 'Jose', 'last_name': 'Altuve'}, {}, ...]}` |
+
