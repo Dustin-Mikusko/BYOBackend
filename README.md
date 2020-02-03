@@ -14,6 +14,8 @@ This backend project builds a **RESTful API** that holds data on current MLB tea
 
 The server will run on `http://localhost:3000`. All endpoints are prefixed with `/api/v1`.
 
+This server is also hosted on Heroku at `https://build-your-own-backend-dm.herokuapp.com/api/v1/teams`.
+
 ## Data Model
 
 There are two tables, labeled `teams` and `players`.
